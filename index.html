@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Authot Editor</title>
+    <meta charset="utf-8">
+    <!-- include libraries(jQuery, bootstrap) -->
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.7/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.7/summernote.js"></script>
+    
+    <!-- Custom -->
+    <script type="text/javascript" src="js/custom.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+  </head>
+  <body>
+    <div class="summernote">
+    </div>
+    <video  id="player" data-id="CHANGE_ME" width="320" height="240" controls>
+      <source src="video/ocr.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="modal fade" id="ExportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal">
+              <span aria-hidden="true"> &times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <h3 class="modal-title modal-title-export">Exporter</h3>
+            <h3 class="modal-title modal-title-align"> Aligner </h3>
+            <h3 class="modal-title modal-title-load"> Chargement </h3>
+          </div>
+          <div class="modal-body">
+            <div class="load_xml">
+              <p id="load_xml_in_progress">
+                <span id="wait_reason">
+                  Chargement en cours
+                  <br>
+                  de votre fichier
+                </span>
+                <br>
+                <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+                <br>
+                <span id="waiting_reason">
+                  Merci de patienter
+                </span>
+              </p>
+            </div>
+            <div class="align_body">
+              <p id="align_in_progress">
+                <span id="wait_reason">
+                  Alignement en cours 
+                  <br>
+                  de votre fichier
+                </span>
+                <br>
+                <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+                <br>
+                <span id="waiting_reason">
+                  Merci de patienter
+                </span>
+              </p>
+            </div>
+            <div class="export_body">
+              <h3> Sélectionner votre format</h3>
+              <select name="list_formats" class="format_sound_export">
+                <option value="txt">Texte (.txt)</option>
+                <option value="docx">Document (.docx)</option>
+                <option value="srt">Sous-titres (.srt)</option>
+                <option value="webvtt">Sous-titres (.webvtt)</option>
+                <option value="text">Timecode (.text)</option>
+                <option value="xml">Xml (.xml)</option>
+                <option value="original_xml">Xml original (.xml)</option>
+                <option value="tst">Tst (.tst)</option>
+                <option value="sjson">Sjson (.sjson)</option>
+                <option value="html">Html (.html)</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" type="button" data-dismiss="modal" style="display: none">Fermer</button>
+            <button class="btn btn-default export modal_button" type="button" tabindex="-1">
+              <span id="txt_button_export"> Exporter </span>
+              <img src="images/export_icon.png" alt="Export Button">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
