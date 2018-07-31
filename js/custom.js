@@ -7,6 +7,7 @@ function SaveApiCall(align) {
   var params = {};
   params.access_token = AccessToken;
   params.document = text;
+  params.align = align;
   $.ajax({
     url : AuthotAPI + "/sounds/" + id + "/save",
     type : 'POST',
