@@ -55,47 +55,17 @@ function ExportApiCall(format){
   var params = {};
   params.access_token = AccessToken;
   params.export_format = format;
-  $.ajax({
-    url : AuthotAPI + "/sounds/" + id,
-    type : 'GET',
-    data: params,
-    success: function(response, status, xhr){
-      var filename = "test." + params.export_format;
-      var disposition = xhr.getResponseHeader('Content-Disposition');
-      if (disposition && disposition.indexOf('attachment') !== -1) {
-        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-        var matches = filenameRegex.exec(disposition);
-        if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-      }
-      var type = xhr.getResponseHeader('Content-Type');
-      var blob = new Blob([response], { type: type });
-      if (typeof window.navigator.msSaveBlob !== 'undefined') {
-        window.navigator.msSaveBlob(blob, filename);
-      } else {
-        var URL = window.URL || window.webkitURL;
-        var downloadUrl = URL.createObjectURL(blob);
-        if (filename) {
-          var a = document.createElement("a");
-          if (typeof a.download === 'undefined') {
-            window.location = downloadUrl;
-          } else {
-            a.href = downloadUrl;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-          }
-        } else {
-          window.location = downloadUrl;
-        }
-        setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100);
-      }
-      $('#ExportModal').modal('hide');
-    },
-    error: function(data, status, error){
-      $('#ExportModal').modal('hide');
-      alert("Erreur lors de l'export. Merci de nous contacter");
-    }
-  });
+  var req = new XMLHttpRequest();
+  req.open("GET", AuthotAPI + "/sounds/" + id + "?access_token=" + AccessToken + "&export_format=" + format, true);
+  req.responseType = "blob";
+  req.onload = function (event) {
+    var blob = req.response;
+    var link=document.createElement('a');
+    link.href=window.URL.createObjectURL(blob);
+    link.download="test." + format;
+    link.click();
+  };
+  req.send();
 }
 function SaveProcess() {
   SaveApiCall(false);
